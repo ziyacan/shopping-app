@@ -8,9 +8,9 @@ export interface ComponentCanDeactivate {
 export class PendingChangesGuard implements CanDeactivate<ComponentCanDeactivate> {
     canDeactivate(component:ComponentCanDeactivate):boolean | Observable<boolean> {
         if(component.canDeactivate()) {
-            return true;
+            return confirm('You have unsaved changes. Are you sure?');
         } else {
-           return confirm('You have unsaved changes. Are you sure?');
+            return true;
         }
     }
 }
