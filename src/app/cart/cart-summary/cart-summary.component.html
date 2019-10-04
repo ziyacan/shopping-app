@@ -1,0 +1,38 @@
+<ul *ngIf="cartItems.length>0;else cartEmptyContent" class="navbar-nav mr-auto">
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+      aria-haspopup="true" aria-expanded="false">
+      <i class="fas fa-shopping-cart"></i>{{totalCartItemPrice | currency : 'USD' : true}}({{totalCartItem}})
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+      <li style="display: grid">
+        <a *ngFor="let item of cartItems">
+          <div class="col-md-12 flex">
+            <div class="col-md-9 card-align">
+              <strong>{{item.product.productName | uppercase}} ({{item.quantity}})</strong>
+            </div>
+            <div class="col-md-3 card-align">
+              <i class="remove fas fa-trash-alt btn btn-xs btn-danger" (click)="removeFromCart(item.product)"></i>
+            </div>
+          </div>
+        </a>
+      </li>
+      <li class="my-cart">
+        <a routerLink="my-cart"><strong>Go to cart</strong></a>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<ng-template #cartEmptyContent>
+  <ul class="navbar-nav mr-auto">
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false">
+        <i class="fas fa-shopping-cart"></i>
+        Cart is empty
+        <span class="caret"></span>
+      </a>
+    </li>
+  </ul>
+</ng-template>

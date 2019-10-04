@@ -1,0 +1,33 @@
+<h4 class="page-header">Products</h4>
+<!-- <div *ngIf="addedProduct" class="alert alert-success">
+  {{addedProduct}} added to cart!
+</div> -->
+<div *ngIf="filterText">
+  <p>You searched for {{filterText}}</p>
+</div>
+<div>
+  <input class="form-control" placeholder="type something..." type="search" name="search" [(ngModel)]="filterText">
+</div>
+<div>
+  <ul class="list-group">
+    <li class="list-group-item" *ngFor="let product of products | productFilter:filterText | slice:(pager.currentPage -1) * pager.pageSize:((pager.currentPage -1) * pager.pageSize) + pager.pageSize">
+      <div class="text-right">
+        <button (click)="addToCart(product)" class="btn btn-xs btn-primary">
+          <i class="fas fa-plus"></i> Add to Cart
+        </button>
+      </div>
+      <h5>{{product.productName}}</h5>
+      <p>{{product.quantityPerUnit}}</p>
+      <h6>{{product.unitPrice | currency:'USD': true}} (VAT included
+        :{{product.unitPrice | vatAdded |  currency:'USD': true}})</h6>
+    </li>
+  </ul>
+</div>
+
+<nav aria-label="Page Navigation">
+  <ul class="pagination">
+    <li *ngFor="let page of pager.pageList" class="page-item" [class.active]="page===pager.currentPage">
+      <a class="page-link" style="cursor: pointer;" (click)="setPage(page)">{{page}}</a>
+    </li>
+  </ul>
+</nav>
